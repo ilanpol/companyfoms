@@ -57,28 +57,50 @@
         <div class="form-section no-print">
             <h2>📝 מילוי פרטי המסמכים</h2>
             
-            <h3>פרטי הערב האישי</h3>
+            <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+                <p style="color: white; font-size: 12px; margin-bottom: 6px;">💡 <strong>הסבר:</strong></p>
+                <p style="color: white; font-size: 11px; line-height: 1.5;">
+                    • <strong>הערב</strong> = בעל השליטה בחברה (חותם על ערבות אישית)<br>
+                    • <strong>מיופה הכח</strong> = מי שחותם בשם החברה (בדרך כלל אותו אדם כמו הערב)<br>
+                    • במקרה של שותפות - ניתן להוסיף ערב שני
+                </p>
+            </div>
+            
+            <h3>פרטי הערב האישי (בעל השליטה/שותף 1)</h3>
             <div class="form-grid">
                 <div class="form-group"><label>שם מלא הערב *</label><input type="text" id="guarantorName"></div>
                 <div class="form-group"><label>ת.ז הערב *</label><input type="text" id="guarantorId" maxlength="9"></div>
+                <div class="form-group"><label>תאריך לידה</label><input type="date" id="guarantorBirthDate"></div>
                 <div class="form-group"><label>כתובת הערב</label><input type="text" id="guarantorAddress"></div>
                 <div class="form-group"><label>טלפון הערב</label><input type="text" id="guarantorPhone"></div>
+            </div>
+            
+            <h3>ערב שני (אופציונלי - במקרה של שותפות)</h3>
+            <div class="form-grid">
+                <div class="form-group"><label>שם מלא ערב 2</label><input type="text" id="guarantor2Name"></div>
+                <div class="form-group"><label>ת.ז ערב 2</label><input type="text" id="guarantor2Id" maxlength="9"></div>
+                <div class="form-group"><label>תאריך לידה</label><input type="date" id="guarantor2BirthDate"></div>
+                <div class="form-group"><label>כתובת ערב 2</label><input type="text" id="guarantor2Address"></div>
+                <div class="form-group"><label>טלפון ערב 2</label><input type="text" id="guarantor2Phone"></div>
             </div>
             
             <h3>פרטי החברה/הלקוח</h3>
             <div class="form-grid">
                 <div class="form-group"><label>שם החברה *</label><input type="text" id="companyName"></div>
                 <div class="form-group"><label>ח.פ. *</label><input type="text" id="companyId"></div>
+                <div class="form-group"><label>תאריך התאגדות</label><input type="date" id="companyEstDate"></div>
                 <div class="form-group"><label>כתובת החברה</label><input type="text" id="companyAddress"></div>
                 <div class="form-group"><label>דוא"ל החברה</label><input type="email" id="companyEmail"></div>
             </div>
             
             <h3>פרטי מיופה הכח (מי שחותם בשם החברה)</h3>
+            <p style="color: white; font-size: 11px; margin-bottom: 8px; opacity: 0.9;">💡 לרוב מיופה הכח הוא אותו אדם כמו הערב (בעל החברה)</p>
             <div class="form-grid">
                 <div class="form-group"><label>שם מיופה הכח *</label><input type="text" id="poaName"></div>
                 <div class="form-group"><label>ת.ז מיופה הכח *</label><input type="text" id="poaId" maxlength="9"></div>
+                <div class="form-group"><label>תאריך לידה</label><input type="date" id="poaBirthDate"></div>
                 <div class="form-group"><label>תפקיד בחברה</label><input type="text" id="poaTitle"></div>
-                <div class="form-group"><label>תאריך *</label><input type="date" id="signDate"></div>
+                <div class="form-group"><label>תאריך חתימה *</label><input type="date" id="signDate"></div>
             </div>
             
             <div class="button-group">
@@ -358,16 +380,23 @@
                 <tr>
                     <td>תאגיד</td>
                     <td><span id="p5">___</span></td>
-                    <td></td>
+                    <td><span id="p14">___</span></td>
                     <td></td>
                     <td><span id="p6">___</span></td>
                 </tr>
                 <tr>
                     <td><span id="p7">___</span></td>
                     <td><span id="p8">___</span></td>
-                    <td></td>
+                    <td><span id="p15">___</span></td>
                     <td>זכר</td>
                     <td><span id="p9">___</span></td>
+                </tr>
+                <tr id="guarantor2Row" style="display: none;">
+                    <td><span id="p16">___</span></td>
+                    <td><span id="p17">___</span></td>
+                    <td><span id="p18">___</span></td>
+                    <td>זכר</td>
+                    <td><span id="p19">___</span></td>
                 </tr>
             </table>
             
@@ -397,7 +426,8 @@
                     <th>הלקוח (הלווה)</th>
                     <th>נותן השירות (המלווה)</th>
                     <th>המסב</th>
-                    <th>ערב</th>
+                    <th>ערב 1</th>
+                    <th id="guarantor2Header" style="display: none;">ערב 2</th>
                 </tr>
                 <tr>
                     <td><strong>שם מלא</strong></td>
@@ -405,6 +435,7 @@
                     <td>ניר חן יזמות בע"מ</td>
                     <td></td>
                     <td><span id="f7">___</span></td>
+                    <td id="guarantor2Col1" style="display: none;"><span id="f15">___</span></td>
                 </tr>
                 <tr>
                     <td><strong>תעודת זהות / ח.פ</strong></td>
@@ -412,6 +443,7 @@
                     <td>513475376</td>
                     <td></td>
                     <td><span id="f9">___</span></td>
+                    <td id="guarantor2Col2" style="display: none;"><span id="f16">___</span></td>
                 </tr>
                 <tr>
                     <td><strong>כתובת</strong></td>
@@ -419,6 +451,7 @@
                     <td>המלאכה 8 ראש העין</td>
                     <td></td>
                     <td><span id="f11">___</span></td>
+                    <td id="guarantor2Col3" style="display: none;"><span id="f17">___</span></td>
                 </tr>
                 <tr>
                     <td><strong>דוא"ל</strong></td>
@@ -426,6 +459,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td id="guarantor2Col4" style="display: none;"></td>
                 </tr>
             </table>
             
@@ -588,7 +622,7 @@
                     <p><strong>שם:</strong> <span id="a1">___</span></p>
                     <p><strong>ת.ז:</strong> <span id="a2">___</span></p>
                     <p><strong>כתובת:</strong> <span id="a3">___</span></p>
-                    <p><strong>טלפון:</strong> _______________</p>
+                    <p><strong>טלפון:</strong> <span id="a9">___</span></p>
                     <div style="margin-top: 15px;">
                         <p><strong>חתימה:</strong></p>
                         <div style="border-bottom: 2px solid #000; height: 40px; margin: 10px 0;"></div>
@@ -596,11 +630,11 @@
                 </div>
                 
                 <div style="margin: 15px 0; padding: 15px; background: white; border: 2px solid #999;">
-                    <p style="font-weight: 700; margin-bottom: 10px;">ערב 2 (אופציונלי):</p>
-                    <p><strong>שם:</strong> _______________</p>
-                    <p><strong>ת.ז:</strong> _______________</p>
-                    <p><strong>כתובת:</strong> _______________</p>
-                    <p><strong>טלפון:</strong> _______________</p>
+                    <p style="font-weight: 700; margin-bottom: 10px;">ערב 2 (במקרה של שותפות):</p>
+                    <p><strong>שם:</strong> <span id="a5">___</span></p>
+                    <p><strong>ת.ז:</strong> <span id="a6">___</span></p>
+                    <p><strong>כתובת:</strong> <span id="a7">___</span></p>
+                    <p><strong>טלפון:</strong> <span id="a8">___</span></p>
                     <div style="margin-top: 15px;">
                         <p><strong>חתימה:</strong></p>
                         <div style="border-bottom: 2px solid #000; height: 40px; margin: 10px 0;"></div>
@@ -618,11 +652,21 @@
 
     <script>
         function update() {
-            // נתוני ערב
+            // נתוני ערב ראשון
             const guarantorName = document.getElementById('guarantorName').value || '___';
             const guarantorId = document.getElementById('guarantorId').value || '___';
             const guarantorAddress = document.getElementById('guarantorAddress').value || '___';
             const guarantorPhone = document.getElementById('guarantorPhone').value || '___';
+            const guarantorBirthDate = document.getElementById('guarantorBirthDate').value;
+            const guarantorBirthDateFormatted = guarantorBirthDate ? new Date(guarantorBirthDate).toLocaleDateString('he-IL') : '___';
+            
+            // נתוני ערב שני
+            const guarantor2Name = document.getElementById('guarantor2Name').value || '___';
+            const guarantor2Id = document.getElementById('guarantor2Id').value || '___';
+            const guarantor2Address = document.getElementById('guarantor2Address').value || '___';
+            const guarantor2Phone = document.getElementById('guarantor2Phone').value || '___';
+            const guarantor2BirthDate = document.getElementById('guarantor2BirthDate').value;
+            const guarantor2BirthDateFormatted = guarantor2BirthDate ? new Date(guarantor2BirthDate).toLocaleDateString('he-IL') : '___';
             
             // נתוני חברה
             const companyName = document.getElementById('companyName').value || '___';
@@ -633,6 +677,16 @@
             // נתוני מיופה כח
             const poaName = document.getElementById('poaName').value || '___';
             const poaId = document.getElementById('poaId').value || '___';
+            const poaBirthDate = document.getElementById('poaBirthDate').value;
+            const poaBirthDateFormatted = poaBirthDate ? new Date(poaBirthDate).toLocaleDateString('he-IL') : '___';
+            
+            // נתוני חברה
+            const companyName = document.getElementById('companyName').value || '___';
+            const companyId = document.getElementById('companyId').value || '___';
+            const companyAddress = document.getElementById('companyAddress').value || '___';
+            const companyEmail = document.getElementById('companyEmail').value || '___';
+            const companyEstDate = document.getElementById('companyEstDate').value;
+            const companyEstDateFormatted = companyEstDate ? new Date(companyEstDate).toLocaleDateString('he-IL') : '___';
             
             // תאריך
             const date = document.getElementById('signDate').value;
@@ -662,7 +716,7 @@
             }
             
             // עדכון ייפוי כח (p)
-            for(let i=1; i<=13; i++) {
+            for(let i=1; i<=19; i++) {
                 const el = document.getElementById('p'+i);
                 if(el) {
                     if([1,5,11].includes(i)) el.textContent = companyName;
@@ -671,11 +725,27 @@
                     else if([4,8,13].includes(i)) el.textContent = poaId;
                     else if([6,9].includes(i)) el.textContent = companyAddress;
                     else if(i==10) el.textContent = fdate;
+                    else if(i==14) el.textContent = companyEstDateFormatted;
+                    else if(i==15) el.textContent = poaBirthDateFormatted;
+                    else if(i==16) el.textContent = guarantor2Name;
+                    else if(i==17) el.textContent = guarantor2Id;
+                    else if(i==18) el.textContent = guarantor2BirthDateFormatted;
+                    else if(i==19) el.textContent = guarantor2Address;
+                }
+            }
+            
+            // הצג/הסתר שורת ערב שני בטבלת ייפוי הכח
+            const guarantor2Row = document.getElementById('guarantor2Row');
+            if(guarantor2Row) {
+                if(guarantor2Name !== '___' || guarantor2Id !== '___') {
+                    guarantor2Row.style.display = '';
+                } else {
+                    guarantor2Row.style.display = 'none';
                 }
             }
             
             // עדכון טופס התקשרות (f)
-            for(let i=1; i<=14; i++) {
+            for(let i=1; i<=17; i++) {
                 const el = document.getElementById('f'+i);
                 if(el) {
                     if([1,5].includes(i)) el.textContent = fdate;
@@ -686,7 +756,28 @@
                     else if([9,14].includes(i)) el.textContent = guarantorId;
                     else if(i==11) el.textContent = guarantorAddress;
                     else if(i==12) el.textContent = companyEmail;
+                    else if(i==15) el.textContent = guarantor2Name;
+                    else if(i==16) el.textContent = guarantor2Id;
+                    else if(i==17) el.textContent = guarantor2Address;
                 }
+            }
+            
+            // הצג/הסתר עמודת ערב 2 בטבלת פרטי התקשרות
+            const guarantor2Header = document.getElementById('guarantor2Header');
+            const guarantor2Cols = ['guarantor2Col1', 'guarantor2Col2', 'guarantor2Col3', 'guarantor2Col4'];
+            
+            if(guarantor2Name !== '___' || guarantor2Id !== '___') {
+                if(guarantor2Header) guarantor2Header.style.display = '';
+                guarantor2Cols.forEach(colId => {
+                    const col = document.getElementById(colId);
+                    if(col) col.style.display = '';
+                });
+            } else {
+                if(guarantor2Header) guarantor2Header.style.display = 'none';
+                guarantor2Cols.forEach(colId => {
+                    const col = document.getElementById(colId);
+                    if(col) col.style.display = 'none';
+                });
             }
             
             // עדכון שטר חוב (s)
@@ -701,13 +792,18 @@
             }
             
             // עדכון ערבות אוואל (a)
-            for(let i=1; i<=4; i++) {
+            for(let i=1; i<=9; i++) {
                 const el = document.getElementById('a'+i);
                 if(el) {
                     if(i==1) el.textContent = guarantorName;
                     else if(i==2) el.textContent = guarantorId;
                     else if(i==3) el.textContent = guarantorAddress;
                     else if(i==4) el.textContent = fdate;
+                    else if(i==5) el.textContent = guarantor2Name;
+                    else if(i==6) el.textContent = guarantor2Id;
+                    else if(i==7) el.textContent = guarantor2Address;
+                    else if(i==8) el.textContent = guarantor2Phone;
+                    else if(i==9) el.textContent = guarantorPhone;
                 }
             }
         }
