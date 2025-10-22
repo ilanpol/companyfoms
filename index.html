@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- 
-    מערכת מסמכי ערבות וניכיון - גרסה 2.4 COMPLETE
-    עודכן: 22/10/2025 - 23:30
-    תיקון: שגיאת JavaScript + תוכן מלא
+    מערכת מסמכי ערבות וניכיון - גרסה 2.5 COMPLETE
+    עודכן: 22/10/2025 - 23:45
+    תיקון: JavaScript + תוכן מלא + צ'קבוקס מיופה כח + בחירת מין
 -->
 <html dir="rtl" lang="he">
 <head>
@@ -62,7 +62,7 @@
         <div class="form-section no-print">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2 style="margin: 0;">📝 מילוי פרטי המסמכים</h2>
-                <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; color: white; font-size: 11px; font-weight: 600;">גרסה 2.4 ✓ מלאה</span>
+                <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; color: white; font-size: 11px; font-weight: 600;">גרסה 2.5 ✓ מלאה</span>
             </div>
             
             <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
@@ -102,12 +102,27 @@
             </div>
             
             <h3>פרטי מיופה הכח (מי שחותם בשם החברה)</h3>
-            <p style="color: white; font-size: 11px; margin-bottom: 8px; opacity: 0.9;">💡 לרוב מיופה הכח הוא אותו אדם כמו הערב (בעל החברה)</p>
+            
+            <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                <label style="display: flex; align-items: center; cursor: pointer; color: white; font-size: 13px;">
+                    <input type="checkbox" id="poaSameAsGuarantor" style="width: auto; margin-left: 8px; cursor: pointer;" onchange="copyGuarantorToPoa()">
+                    <strong>מיופה הכח הוא בעל החברה/הערב (העתק פרטים אוטומטית)</strong>
+                </label>
+            </div>
+            
             <div class="form-grid">
                 <div class="form-group"><label>שם מיופה הכח *</label><input type="text" id="poaName"></div>
                 <div class="form-group"><label>ת.ז מיופה הכח *</label><input type="text" id="poaId" maxlength="9"></div>
                 <div class="form-group"><label>תאריך לידה</label><input type="date" id="poaBirthDate"></div>
-                <div class="form-group"><label>תפקיד בחברה</label><input type="text" id="poaTitle"></div>
+                <div class="form-group"><label>כתובת מיופה הכח</label><input type="text" id="poaAddress"></div>
+                <div class="form-group">
+                    <label>מין *</label>
+                    <select id="poaGender" style="width: 100%; padding: 6px 10px; border-radius: 4px; font-size: 12px; border: 1px solid rgba(255,255,255,0.3);">
+                        <option value="זכר">זכר</option>
+                        <option value="נקבה">נקבה</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>תפקיד בחברה</label><input type="text" id="poaTitle" value="מנכ"ל"></div>
                 <div class="form-group"><label>תאריך חתימה *</label><input type="date" id="signDate"></div>
             </div>
             
@@ -545,8 +560,8 @@
                         <td><span class="highlight" id="p7">___</span></td>
                         <td><span class="highlight" id="p8">___</span></td>
                         <td><span id="p15">___</span></td>
-                        <td>זכר</td>
-                        <td><span id="p6">___</span></td>
+                        <td><span id="p20">זכר</span></td>
+                        <td><span id="p21">___</span></td>
                     </tr>
                     <tr id="guarantor2Row" style="display: none;">
                         <td><span id="p16">___</span></td>
@@ -625,6 +640,33 @@
     </div>
     
     <script>
+        function copyGuarantorToPoa() {
+            const checkbox = document.getElementById('poaSameAsGuarantor');
+            
+            if(checkbox.checked) {
+                // העתק פרטים מהערב למיופה הכח
+                document.getElementById('poaName').value = document.getElementById('guarantorName').value;
+                document.getElementById('poaId').value = document.getElementById('guarantorId').value;
+                document.getElementById('poaBirthDate').value = document.getElementById('guarantorBirthDate').value;
+                document.getElementById('poaAddress').value = document.getElementById('guarantorAddress').value;
+                
+                // נעל את השדות
+                document.getElementById('poaName').disabled = true;
+                document.getElementById('poaId').disabled = true;
+                document.getElementById('poaBirthDate').disabled = true;
+                document.getElementById('poaAddress').disabled = true;
+            } else {
+                // בטל נעילה של השדות
+                document.getElementById('poaName').disabled = false;
+                document.getElementById('poaId').disabled = false;
+                document.getElementById('poaBirthDate').disabled = false;
+                document.getElementById('poaAddress').disabled = false;
+            }
+            
+            // עדכן את התצוגה
+            update();
+        }
+        
         function update() {
             // קבלת כל הנתונים מהטופס - הגדרה יחידה של כל משתנה
             const guarantorName = document.getElementById('guarantorName').value || '___';
@@ -649,6 +691,8 @@
             const poaId = document.getElementById('poaId').value || '___';
             const poaTitle = document.getElementById('poaTitle').value || '___';
             const poaBirthDate = document.getElementById('poaBirthDate').value;
+            const poaAddress = document.getElementById('poaAddress').value || '___';
+            const poaGender = document.getElementById('poaGender').value || 'זכר';
             
             // עיצוב תאריכים
             const companyEstDateFormatted = companyEstDate ? new Date(companyEstDate).toLocaleDateString('he-IL') : '___';
@@ -718,14 +762,14 @@
             }
             
             // עדכון ייפוי כח (p)
-            for(let i=1; i<=19; i++) {
+            for(let i=1; i<=21; i++) {
                 const el = document.getElementById('p'+i);
                 if(el) {
                     if([1,5].includes(i)) el.textContent = companyName;
                     else if([2,6].includes(i)) el.textContent = companyId;
                     else if([3,7].includes(i)) el.textContent = poaName;
                     else if([4,8].includes(i)) el.textContent = poaId;
-                    else if([9].includes(i)) el.textContent = companyAddress;
+                    else if(i==9) el.textContent = companyAddress;
                     else if(i==10) el.textContent = fdate;
                     else if(i==14) el.textContent = companyEstDateFormatted;
                     else if(i==15) el.textContent = poaBirthDateFormatted;
@@ -733,6 +777,8 @@
                     else if(i==17) el.textContent = guarantor2Id;
                     else if(i==18) el.textContent = guarantor2BirthDateFormatted;
                     else if(i==19) el.textContent = guarantor2Address;
+                    else if(i==20) el.textContent = poaGender;
+                    else if(i==21) el.textContent = poaAddress;
                 }
             }
             
@@ -786,11 +832,36 @@
         
         // הוספת מאזין לכל שדות הקלט
         document.querySelectorAll('input').forEach(el => el.addEventListener('input', update));
+        document.getElementById('poaGender').addEventListener('change', update);
+        
+        // מאזין לשדות הערב - אם הצ'קבוקס מסומן, יעדכן גם את מיופה הכח
+        ['guarantorName', 'guarantorId', 'guarantorBirthDate', 'guarantorAddress'].forEach(fieldId => {
+            document.getElementById(fieldId).addEventListener('input', () => {
+                if(document.getElementById('poaSameAsGuarantor').checked) {
+                    copyGuarantorToPoa();
+                }
+            });
+        });
         
         function resetForm() {
             if(confirm('לנקות את כל השדות?')) {
-                document.querySelectorAll('input').forEach(el => el.value = '');
+                document.querySelectorAll('input').forEach(el => {
+                    if(el.type === 'checkbox') {
+                        el.checked = false;
+                    } else {
+                        el.value = '';
+                    }
+                });
                 document.getElementById('signDate').valueAsDate = new Date();
+                document.getElementById('poaGender').value = 'זכר';
+                document.getElementById('poaTitle').value = 'מנכ"ל';
+                
+                // בטל נעילה של שדות מיופה כח
+                document.getElementById('poaName').disabled = false;
+                document.getElementById('poaId').disabled = false;
+                document.getElementById('poaBirthDate').disabled = false;
+                document.getElementById('poaAddress').disabled = false;
+                
                 update();
             }
         }
@@ -798,6 +869,7 @@
         // הגדרת תאריך ברירת מחדל
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('signDate').valueAsDate = new Date();
+            document.getElementById('poaTitle').value = 'מנכ"ל';
             update();
         });
     </script>
