@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- 
-    מערכת מסמכי ערבות וניכיון - גרסה 2.5 COMPLETE
-    עודכן: 22/10/2025 - 23:45
-    תיקון: JavaScript + תוכן מלא + צ'קבוקס מיופה כח + בחירת מין
+    מערכת מסמכי ערבות וניכיון - גרסה 2.6 COMPLETE
+    עודכן: 22/10/2025 - 23:50
+    תיקון: JavaScript + תוכן מלא + צ'קבוקס מיופה כח + בחירת מין + הגבלות קלט
 -->
 <html dir="rtl" lang="he">
 <head>
@@ -62,7 +62,7 @@
         <div class="form-section no-print">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h2 style="margin: 0;">📝 מילוי פרטי המסמכים</h2>
-                <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; color: white; font-size: 11px; font-weight: 600;">גרסה 2.5 ✓ מלאה</span>
+                <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; color: white; font-size: 11px; font-weight: 600;">גרסה 2.6 ✓ מלאה</span>
             </div>
             
             <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
@@ -70,33 +70,34 @@
                 <p style="color: white; font-size: 11px; line-height: 1.5;">
                     • <strong>הערב</strong> = בעל השליטה בחברה (חותם על ערבות אישית)<br>
                     • <strong>מיופה הכח</strong> = מי שחותם בשם החברה (בדרך כלל אותו אדם כמו הערב)<br>
-                    • במקרה של שותפות - ניתן להוסיף ערב שני
+                    • במקרה של שותפות - ניתן להוסיף ערב שני<br>
+                    • <strong>ת.ז וח.פ:</strong> 9 ספרות | <strong>טלפון:</strong> 10 ספרות | <strong>תאריכים:</strong> לא עתידיים
                 </p>
             </div>
             
             <h3>פרטי הערב האישי (בעל השליטה/שותף 1)</h3>
             <div class="form-grid">
                 <div class="form-group"><label>שם מלא הערב *</label><input type="text" id="guarantorName"></div>
-                <div class="form-group"><label>ת.ז הערב *</label><input type="text" id="guarantorId" maxlength="9"></div>
-                <div class="form-group"><label>תאריך לידה</label><input type="date" id="guarantorBirthDate"></div>
+                <div class="form-group"><label>ת.ז הערב *</label><input type="text" id="guarantorId" maxlength="9" pattern="[0-9]{9}" title="יש להזין 9 ספרות בלבד"></div>
+                <div class="form-group"><label>תאריך לידה</label><input type="date" id="guarantorBirthDate" max=""></div>
                 <div class="form-group"><label>כתובת הערב</label><input type="text" id="guarantorAddress"></div>
-                <div class="form-group"><label>טלפון הערב</label><input type="text" id="guarantorPhone"></div>
+                <div class="form-group"><label>טלפון הערב</label><input type="tel" id="guarantorPhone" maxlength="10" pattern="[0-9]{10}" title="יש להזין 10 ספרות בלבד" placeholder="05XXXXXXXX"></div>
             </div>
             
             <h3>ערב שני (אופציונלי - במקרה של שותפות)</h3>
             <div class="form-grid">
                 <div class="form-group"><label>שם מלא ערב 2</label><input type="text" id="guarantor2Name"></div>
-                <div class="form-group"><label>ת.ז ערב 2</label><input type="text" id="guarantor2Id" maxlength="9"></div>
-                <div class="form-group"><label>תאריך לידה</label><input type="date" id="guarantor2BirthDate"></div>
+                <div class="form-group"><label>ת.ז ערב 2</label><input type="text" id="guarantor2Id" maxlength="9" pattern="[0-9]{9}" title="יש להזין 9 ספרות בלבד"></div>
+                <div class="form-group"><label>תאריך לידה</label><input type="date" id="guarantor2BirthDate" max=""></div>
                 <div class="form-group"><label>כתובת ערב 2</label><input type="text" id="guarantor2Address"></div>
-                <div class="form-group"><label>טלפון ערב 2</label><input type="text" id="guarantor2Phone"></div>
+                <div class="form-group"><label>טלפון ערב 2</label><input type="tel" id="guarantor2Phone" maxlength="10" pattern="[0-9]{10}" title="יש להזין 10 ספרות בלבד" placeholder="05XXXXXXXX"></div>
             </div>
             
             <h3>פרטי החברה/הלקוח</h3>
             <div class="form-grid">
                 <div class="form-group"><label>שם החברה *</label><input type="text" id="companyName"></div>
-                <div class="form-group"><label>ח.פ. *</label><input type="text" id="companyId"></div>
-                <div class="form-group"><label>תאריך התאגדות</label><input type="date" id="companyEstDate"></div>
+                <div class="form-group"><label>ח.פ. *</label><input type="text" id="companyId" maxlength="9" pattern="[0-9]{9}" title="יש להזין 9 ספרות בלבד"></div>
+                <div class="form-group"><label>תאריך התאגדות</label><input type="date" id="companyEstDate" max=""></div>
                 <div class="form-group"><label>כתובת החברה</label><input type="text" id="companyAddress"></div>
                 <div class="form-group"><label>דוא"ל החברה</label><input type="email" id="companyEmail"></div>
             </div>
@@ -112,8 +113,8 @@
             
             <div class="form-grid">
                 <div class="form-group"><label>שם מיופה הכח *</label><input type="text" id="poaName"></div>
-                <div class="form-group"><label>ת.ז מיופה הכח *</label><input type="text" id="poaId" maxlength="9"></div>
-                <div class="form-group"><label>תאריך לידה</label><input type="date" id="poaBirthDate"></div>
+                <div class="form-group"><label>ת.ז מיופה הכח *</label><input type="text" id="poaId" maxlength="9" pattern="[0-9]{9}" title="יש להזין 9 ספרות בלבד"></div>
+                <div class="form-group"><label>תאריך לידה</label><input type="date" id="poaBirthDate" max=""></div>
                 <div class="form-group"><label>כתובת מיופה הכח</label><input type="text" id="poaAddress"></div>
                 <div class="form-group">
                     <label>מין *</label>
@@ -123,7 +124,7 @@
                     </select>
                 </div>
                 <div class="form-group"><label>תפקיד בחברה</label><input type="text" id="poaTitle" value="מנכ"ל"></div>
-                <div class="form-group"><label>תאריך חתימה *</label><input type="date" id="signDate"></div>
+                <div class="form-group"><label>תאריך חתימה *</label><input type="date" id="signDate" max=""></div>
             </div>
             
             <div class="button-group">
@@ -868,6 +869,17 @@
         
         // הגדרת תאריך ברירת מחדל
         window.addEventListener('DOMContentLoaded', () => {
+            // הגדר תאריך היום
+            const today = new Date().toISOString().split('T')[0];
+            
+            // הגדר תאריך מקסימלי (לא עתידי) לכל שדות התאריך
+            document.getElementById('guarantorBirthDate').max = today;
+            document.getElementById('guarantor2BirthDate').max = today;
+            document.getElementById('companyEstDate').max = today;
+            document.getElementById('poaBirthDate').max = today;
+            document.getElementById('signDate').max = today;
+            
+            // הגדר תאריך חתימה ברירת מחדל להיום
             document.getElementById('signDate').valueAsDate = new Date();
             document.getElementById('poaTitle').value = 'מנכ"ל';
             update();
